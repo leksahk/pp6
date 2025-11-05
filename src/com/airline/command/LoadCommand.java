@@ -12,6 +12,7 @@ public class LoadCommand implements Command {
 
     @Override
     public void execute() {
+        fleet.clear();
         FileHandler.load(fleet);
     }
 }

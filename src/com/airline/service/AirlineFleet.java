@@ -72,4 +72,7 @@ public class AirlineFleet {
     public List<Airplane> getFleet() {
         return Collections.unmodifiableList(fleet);
     }
+    public void clear() {
+        this.fleet.clear();
+    }
 }
