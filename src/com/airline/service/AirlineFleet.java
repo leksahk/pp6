@@ -19,47 +19,80 @@ public class AirlineFleet {
     }
 
     public boolean removeAirplane(String model) {
-        return fleet.removeIf(p -> p.getModel().equalsIgnoreCase(model));
+        Iterator<Airplane> iterator = fleet.iterator();
+        while (iterator.hasNext()) {
+            Airplane plane = iterator.next();
+            if (plane.getModel().equalsIgnoreCase(model)) {
+                iterator.remove();
+                return true; //знайшли і видалили
+            }
+        }
+        return false;
     }
 
     public Airplane findByModel(String model) {
-        return fleet.stream()
-                .filter(p -> p.getModel().equalsIgnoreCase(model))
-                .findFirst().orElse(null);
+        for (Airplane plane : fleet) {
+            if (plane.getModel().equalsIgnoreCase(model)) {
+                return plane;
+            }
+        }
+        return null;
     }
 
     public double getTotalPassengerCapacity() {
-        return fleet.stream()
-                .filter(p -> p instanceof PassengerAirplane || p instanceof PrivateJet)
-                .mapToDouble(Airplane::calculateCapacity)
-                .sum();
+        double totalCapacity = 0;
+        for (Airplane plane : fleet) {
+            if (plane instanceof CargoAirplane || plane instanceof MilitaryAirplane) {
+                totalCapacity += plane.calculateCapacity();
+            }
+        }
+        return totalCapacity;
     }
 
     public double getTotalPayloadCapacity() {
-        return fleet.stream()
-                .filter(p -> p instanceof CargoAirplane || p instanceof MilitaryAirplane)
-                .mapToDouble(Airplane::calculateCapacity)
-                .sum();
+        double totalCapacity = 0;
+        for (Airplane plane : fleet) {
+            if (plane instanceof CargoAirplane || plane instanceof MilitaryAirplane) {
+                totalCapacity += plane.calculateCapacity();
+            }
+        }
+        return totalCapacity;
     }
 
     public List<Airplane> sortByFlightRange() {
-        return fleet.stream()
-                .sorted(Comparator.comparingDouble(Airplane::getFlightRange).reversed())
-                .toList();
+        List<Airplane> sortedList = new ArrayList<>(fleet);
+        //анонімний клас Comparator
+        Comparator<Airplane> byRange = new Comparator<Airplane>() {
+            @Override
+            public int compare(Airplane a1, Airplane a2) {
+                return Double.compare(a2.getFlightRange(), a1.getFlightRange());
+            }
+        };
+        Collections.sort(sortedList, byRange);
+        return sortedList;
     }
 
     public List<Airplane> findByFuelConsumption(double min, double max) {
-        return fleet.stream()
-                .filter(p -> p.getFuelConsumption() >= min && p.getFuelConsumption() <= max)
-                .toList();
+        List<Airplane> result = new ArrayList<>();
+        for (Airplane plane : fleet) {
+            if (plane.getFuelConsumption() >= min && plane.getFuelConsumption() <= max) {
+                result.add(plane);
+            }
+        }
+        return result;
     }
 
     public List<PrivateJet> findByLuxuryLevel(int min, int max) {
-        return fleet.stream()
-                .filter(p -> p instanceof PrivateJet)
-                .map(p -> (PrivateJet) p)
-                .filter(j -> j.getLuxuryLevel() >= min && j.getLuxuryLevel() <= max)
-                .toList();
+        List<PrivateJet> result = new ArrayList<>();
+        for (Airplane plane : fleet) {
+            if (plane instanceof PrivateJet) {
+                PrivateJet jet = (PrivateJet) plane;
+                if (jet.getLuxuryLevel() >= min && jet.getLuxuryLevel() <= max) {
+                    result.add(jet);
+                }
+            }
+        }
+        return result;
     }
 
     public void generateReport() {

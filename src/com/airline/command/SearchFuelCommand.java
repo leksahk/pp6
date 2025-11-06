@@ -1,5 +1,6 @@
 package com.airline.command;
 
+import com.airline.model.Airplane;
 import com.airline.service.AirlineFleet;
 import java.util.Scanner;
 
@@ -23,8 +24,8 @@ public class SearchFuelCommand implements Command {
         System.out.println("\nРезультат пошуку за паливом:");
         if (result.isEmpty()) {
             System.out.println("Літаків не знайдено.");
-        } else {
-            result.forEach(System.out::println);
+        } else for (Airplane p : result) {
+            System.out.println(p);
         }
         scanner.nextLine();
     }

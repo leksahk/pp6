@@ -1,6 +1,6 @@
 package com.airline.command;
-
 import com.airline.service.AirlineFleet;
+import com.airline.model.Airplane;
 
 public class SortCommand implements Command {
     private final AirlineFleet fleet;
@@ -16,7 +16,9 @@ public class SortCommand implements Command {
         if (sorted.isEmpty()) {
             System.out.println("Немає літаків.");
         } else {
-            sorted.forEach(System.out::println);
+            for (Airplane p : sorted) {
+                System.out.println(p);
+            }
         }
     }
 }

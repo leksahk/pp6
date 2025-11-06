@@ -1,7 +1,7 @@
-PassengerAirplane;Boeing 737;Boeing;2005;900.00;12000.00;0.80;180
-CargoAirplane;Antonov An-124;Antonov;1986;850.00;15000.00;1.50;150.00
-PrivateJet;Gulfstream G650;Gulfstream;2018;1100.00;13000.00;0.90;8;5
-MilitaryAirplane;F-35;Lockheed Martin;2015;1900.00;2200.00;2.10;2.50
-PassengerAirplane;Airbus A320;Airbus;2010;870.00;11500.00;0.75;150
-CargoAirplane;IL-76;ILYUSHIN;1974;800.00;7300.00;1.80;40.00
-PrivateJet;Cessna Citation X;Cessna;1996;978.00;6000.00;1.20;9;4
+PassengerAirplane;Boeing 737;Boeing;2005;900,00;12000,00;0,80;180
+CargoAirplane;Antonov An-124;Antonov;1986;850,00;15000,00;1,50;150.0
+PrivateJet;Gulfstream G650;Gulfstream;2018;1100,00;13000,00;0,90;8;5
+MilitaryAirplane;F-35;Lockheed Martin;2015;1900,00;2200,00;2,10;2.5
+PassengerAirplane;Airbus A320;Airbus;2010;870,00;11500,00;0,75;150
+CargoAirplane;IL-76;ILYUSHIN;1974;800,00;7300,00;1,80;40.0
+PrivateJet;Cessna Citation X;Cessna;1996;978,00;6000,00;1,20;9;4

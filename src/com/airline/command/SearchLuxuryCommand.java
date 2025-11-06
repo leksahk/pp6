@@ -1,5 +1,6 @@
 package com.airline.command;
 
+import com.airline.model.PrivateJet;
 import com.airline.service.AirlineFleet;
 import java.util.Scanner;
 
@@ -24,7 +25,9 @@ public class SearchLuxuryCommand implements Command {
         if (result.isEmpty()) {
             System.out.println("Джетів не знайдено.");
         } else {
-            result.forEach(jet -> System.out.println(jet));
+            for (PrivateJet jet : result) {
+                System.out.println(jet);
+            }
         }
         scanner.nextLine();
     }
