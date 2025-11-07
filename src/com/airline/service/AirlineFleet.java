@@ -42,7 +42,7 @@ public class AirlineFleet {
     public double getTotalPassengerCapacity() {
         double totalCapacity = 0;
         for (Airplane plane : fleet) {
-            if (plane instanceof CargoAirplane || plane instanceof MilitaryAirplane) {
+            if (plane instanceof PassengerAirplane || plane instanceof PrivateJet) {
                 totalCapacity += plane.calculateCapacity();
             }
         }
