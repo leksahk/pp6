@@ -64,7 +64,7 @@ public class FileHandler {
         String type = parts[0];
         String model = parts[1], manufacturer = parts[2];
         int year = Integer.parseInt(parts[3]);
-        double speed = Double.parseDouble(parts[4]), range = Double.parseDouble(parts[5]), fuel = Double.parseDouble(parts[6]);
+        double speed = Double.parseDouble(parts[4].replace(',', '.')), range = Double.parseDouble(parts[5].replace(',', '.')), fuel = Double.parseDouble(parts[6].replace(',', '.'));
 
         switch (type) {
             case "PassengerAirplane":
