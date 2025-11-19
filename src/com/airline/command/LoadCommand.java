@@ -12,7 +12,11 @@ public class LoadCommand implements Command {
 
     @Override
     public void execute() {
-        fleet.clear();
-        FileHandler.load(fleet);
+        System.out.println("Спроба завантаження флоту з файлу");
+        try {
+            FileHandler.load(fleet);
+        } catch (Exception e) {
+            System.out.println("Помилка при завантаженні: " + e.getMessage());
+        }
     }
 }

@@ -2,15 +2,21 @@ package com.airline;
 
 import com.airline.command.*;
 import com.airline.service.AirlineFleet;
-import com.airline.service.FileHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        AirlineFleet fleet = new AirlineFleet(50);
-        FileHandler.load(fleet);
-        Scanner scanner = new Scanner(System.in);
+    private static final Logger logger = LogManager.getLogger(Main.class);
 
+    public static void main(String[] args) {
+        System.setProperty("log4j.configurationFile", "src/resources/log4j2.xml");
+
+        logger.info("Програма запущена");
+
+        AirlineFleet fleet = new AirlineFleet(50);
+        Scanner scanner = new Scanner(System.in);
         Map<Integer, Command> commands = new HashMap<>();
         commands.put(1, new AddCommand(fleet, scanner));
         commands.put(2, new RemoveCommand(fleet, scanner));
@@ -41,13 +47,26 @@ public class Main {
             System.out.println("12. Вихід");
             System.out.print("Виберіть: ");
 
-            int choice = scanner.nextInt(); scanner.nextLine();
-            Command cmd = commands.get(choice);
-            if (cmd != null) {
-                cmd.execute();
-            } else {
-                System.out.println("Неправильний вибір. Спробуйте ще раз.");
+            try {
+                int choice = Integer.parseInt(scanner.nextLine());
+                Command cmd = commands.get(choice);
+
+                if (cmd != null) {
+                    logger.info("Виконання команди: {}", choice);
+                    try {
+                        cmd.execute();
+                        if (choice == 12) break; // нормальний вихід
+                    } catch (Exception e) {
+                        logger.error("Критична помилка виконання команди {}: {}", choice, e.getMessage(), e);
+                    }
+                } else {
+                    System.out.println("Невідома команда. Введіть число від 1 до 12.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Некоректний ввід. Введіть число від 1 до 12.");
             }
         }
+
+        logger.info("Програма завершена");
     }
 }

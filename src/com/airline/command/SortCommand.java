@@ -1,8 +1,11 @@
 package com.airline.command;
 import com.airline.service.AirlineFleet;
 import com.airline.model.Airplane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SortCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(SortCommand.class);
     private final AirlineFleet fleet;
 
     public SortCommand(AirlineFleet fleet) {
@@ -12,12 +15,13 @@ public class SortCommand implements Command {
     @Override
     public void execute() {
         var sorted = fleet.sortByFlightRange();
-        System.out.println("\nСортування за дальністю польоту:");
+        logger.info("\nСортування за дальністю польоту:");
         if (sorted.isEmpty()) {
-            System.out.println("Немає літаків.");
+            logger.warn("Немає літаків.");
         } else {
+            logger.info("Результат сортування:");
             for (Airplane p : sorted) {
-                System.out.println(p);
+                logger.info("{}", p);
             }
         }
     }

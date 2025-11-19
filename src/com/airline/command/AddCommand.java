@@ -3,8 +3,11 @@ package com.airline.command;
 import com.airline.model.*;
 import com.airline.service.AirlineFleet;
 import java.util.Scanner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AddCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(AddCommand.class);
     private final AirlineFleet fleet;
     private final Scanner scanner;
 
@@ -66,13 +69,13 @@ public class AddCommand implements Command {
                     throw new IllegalArgumentException("Неправильний тип");
             }
             if (fleet.addAirplane(plane)) {
-                System.out.println("Літак додано: " + plane.getModel());
+                logger.info("Літак додано: " + plane.getModel());
             } else {
-                System.out.println("Флот переповнений");
+                logger.warn("Флот переповнений");
             }
 
         } catch (Exception e) {
-            System.out.println("Помилка: " + e.getMessage());
+            logger.error("Помилка: " + e.getMessage());
         }
         scanner.nextLine();
     }

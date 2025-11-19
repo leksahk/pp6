@@ -11,6 +11,9 @@ public class AirlineFleet {
         if (maxAirplanes <= 0) throw new IllegalArgumentException("Максимальна кількість > 0");
         this.maxAirplanes = maxAirplanes;
     }
+    public AirlineFleet() {
+        this(50);
+    }
 
     public boolean addAirplane(Airplane plane) {
         if (fleet.size() >= maxAirplanes) return false;
