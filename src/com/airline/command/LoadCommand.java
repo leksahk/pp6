@@ -2,8 +2,11 @@ package com.airline.command;
 
 import com.airline.service.AirlineFleet;
 import com.airline.service.FileHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class LoadCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(LoadCommand.class);
     private final AirlineFleet fleet;
 
     public LoadCommand(AirlineFleet fleet) {
@@ -12,11 +15,11 @@ public class LoadCommand implements Command {
 
     @Override
     public void execute() {
-        System.out.println("Спроба завантаження флоту з файлу");
+        logger.info("Спроба завантаження флоту з файлу");
         try {
             FileHandler.load(fleet);
         } catch (Exception e) {
-            System.out.println("Помилка при завантаженні: " + e.getMessage());
+            logger.error("Помилка при завантаженні: {}", e.getMessage());
         }
     }
 }
