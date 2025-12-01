@@ -44,7 +44,8 @@ public static void load(AirlineFleet fleet) {
         } catch (MessagingException ex) {
             System.err.println("Не вдалося надіслати email: " + ex.getMessage());
         }
-        return; // ← вихід, далі не йдемо
+        System.out.println("ПОМИЛКА: Файл даних '" + FILE + "' не знайдено. Флот не завантажено.");
+        return;
     }
 
     try (Scanner sc = new Scanner(file)) {
